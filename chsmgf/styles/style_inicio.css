@@ -5,7 +5,6 @@ body {
 #A4,#B4,#A5,#B5,#A6 {
     background-color: white;
     display: flex;
-    justify-content: center; /* centra horizontalmente */
-    align-items: center;     /* centra verticalmente */
-    height: 100vh;           /* ocupa toda la ventana */
+    justify-content: center;
+    align-items: center;
 }
