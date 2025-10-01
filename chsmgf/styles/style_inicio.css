@@ -1,8 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
 body {
     background-color: lightblue;
-    height: 100%;
-    width: 100%;
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scr {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 #A4,#B4,#A5,#B5,#A6 {
@@ -11,5 +23,5 @@ body {
     justify-content: center;
     align-items: center;
     height: 200px;
-    gap: 10px;
+    width: 100px;
 }
