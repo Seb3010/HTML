@@ -5,7 +5,4 @@ body {
 #A4,#B4,#A5,#B5,#A6 {
     background-color: white;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
 }
