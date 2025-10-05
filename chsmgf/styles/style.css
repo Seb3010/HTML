@@ -27,5 +27,5 @@ body {
 
 #email:hover, #home:hover {
     background-color: #f0f0f0;
-    transform: scale(1.05); /* efecto de agrandarse */
+    transform: scale(1.05);
 }
