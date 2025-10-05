@@ -23,4 +23,13 @@ body {
     background-color: white;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 8px 8px 12px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+#A4:hover, #B4:hover, #A5:hover, #B5:hover, #A6:hover {
+    background-color: white;
+    transform: scale(1.05);
 }

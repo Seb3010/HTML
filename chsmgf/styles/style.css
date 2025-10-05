@@ -26,6 +26,6 @@ body {
 }
 
 #email:hover, #home:hover {
-    background-color: #f0f0f0;
+    background-color: white;
     transform: scale(1.05);
 }
