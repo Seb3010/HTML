@@ -6,6 +6,7 @@ body {
 header {
     background-color: #364552;
     color: white;
+    text-align: center;
     padding: 3rem 2rem;
 }
 #title {
@@ -22,4 +23,5 @@ section article{
     background-color: white;
     margin: 1rem 0;
     border-radius: 0.5rem;
+    padding: 0.25rem;
 }
