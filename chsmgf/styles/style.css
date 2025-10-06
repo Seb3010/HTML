@@ -9,8 +9,7 @@ h1 {
 }
 
 .buttons {
-    width: 200px;
-    margin: 0 auto;
+    display: inline-block;
 }
 
 #email, #home {

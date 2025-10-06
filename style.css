@@ -19,13 +19,19 @@ header {
 }
 
 section article{
+    transition: all 0.3s ease;
     background-color: white;
     margin: 1rem 0;
     border-radius: 0.5rem;
     padding: 0.25rem 0;
+    cursor: pointer;
+}
 
+section article:hover{
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
 }
 
 section article h2, section artile p{
     margin: 1rem;
 }
+
