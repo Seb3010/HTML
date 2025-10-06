@@ -1,7 +1,25 @@
-#Title {
-    color: tomato;
+body {
+    margin: 0;
+    background-color: #f0f0f0;
 }
 
-.text {
-    color: slateblue;
+header {
+    background-color: #364552;
+    color: white;
+    padding: 3rem 2rem;
+}
+#title {
+    font-size: 4rem;
+    text-align: center;
+}
+
+.container{
+    width: 400px;
+    margin: 0 auto;
+}
+
+section article{
+    background-color: white;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
 }
