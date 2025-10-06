@@ -35,6 +35,6 @@ body {
 }
 
 header {
+    width: 200px;
     text-align: center;
-    padding: 20px;
 }
