@@ -35,3 +35,9 @@ section article h2, section artile p{
     margin: 1rem;
 }
 
+footer{
+    background-color: #222;
+    padding: 3rem;
+    color: white;
+
+}

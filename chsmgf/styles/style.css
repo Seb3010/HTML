@@ -10,6 +10,7 @@ h1 {
 
 .buttons {
     display: inline-block;
+    margin: 2rem;
 }
 
 #email, #home {
