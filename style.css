@@ -41,3 +41,7 @@ footer{
     color: white;
 
 }
+
+footer section{
+    float: right;
+}
