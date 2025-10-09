@@ -1,7 +1,12 @@
 body {
     margin: 0;
     background-color: lightblue;
-    
+
+}
+
+body h1 {
+    text-align: center;
+    font-size: 36px;;
 }
 
 body p {
