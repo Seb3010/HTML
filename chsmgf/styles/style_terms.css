@@ -10,9 +10,11 @@ body h1 {
 }
 
 body p {
+    background-color: white;
     text-align: center;
     font-size: 18px;
     margin: 20px;
     border: 2px solid black;
     border-radius: 10px;
 }
+
