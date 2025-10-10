@@ -17,6 +17,7 @@ body p {
     margin: 20px;
     border: 2px solid black;
     border-radius: 10px;
+    height: 150px;
 }
 
 body p:hover {
@@ -31,10 +32,13 @@ body p:hover {
 }
 
 #acepto {
+    font-size: 2rem;
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid black;
     border-radius: 10px;
+    height: 150x;
+    width: 300px;
 }
 
 #acepto:hover {
