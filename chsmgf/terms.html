@@ -22,20 +22,22 @@
     </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO_ID",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "TU_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyDr1gdRN5eJEkTqgT-MMnvJnSqXs32IUTA",
+    authDomain: "chismografo-8184b.firebaseapp.com",
+    projectId: "chismografo-8184b",
+    storageBucket: "chismografo-8184b.firebasestorage.app",
+    messagingSenderId: "492422260287",
+    appId: "1:492422260287:web:ceb2faa553856718223a8a",
+    measurementId: "G-DNYGB4N2LZ"
   };
 
-  // Inicializa Firebase una sola vez
   const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
   const db = getFirestore(app);
 
   // Botón para aceptar términos
@@ -46,7 +48,6 @@
         fecha: new Date(),
         acepto: true
       });
-      // Redirige si quieres después de guardar
       window.location.href = "inicio.html";
     } catch (error) {
       console.error("Error al guardar:", error);
