@@ -17,7 +17,6 @@ body p {
     margin: 20px;
     border: 2px solid black;
     border-radius: 10px;
-    width: 200px;
 }
 
 body p:hover {
