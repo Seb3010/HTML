@@ -16,5 +16,18 @@ body p {
     margin: 20px;
     border: 2px solid black;
     border-radius: 10px;
+    width: 80%;
 }
 
+body p:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+}
+
+#terms {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;            
+    justify-content: center;
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
