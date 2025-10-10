@@ -23,7 +23,6 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
   import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -32,30 +31,28 @@
     projectId: "TU_PROYECTO_ID",
     storageBucket: "TU_PROYECTO.appspot.com",
     messagingSenderId: "TU_ID",
-    appId: "TU_APP_ID",
-    measurementId: "TU_MEASUREMENT_ID"
+    appId: "TU_APP_ID"
   };
 
-  // Inicialización única
+  // Inicializa Firebase una sola vez
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   const db = getFirestore(app);
 
+  // Botón para aceptar términos
   const boton = document.getElementById("acepto");
-
   boton.addEventListener("click", async () => {
     try {
       await addDoc(collection(db, "consentimientos"), {
         fecha: new Date(),
         acepto: true
       });
+      // Redirige si quieres después de guardar
       window.location.href = "inicio.html";
     } catch (error) {
-      console.error("Error al enviar el consentimiento:", error);
+      console.error("Error al guardar:", error);
       alert("Ocurrió un error, intenta nuevamente.");
     }
   });
 </script>
-
 </body>
 </html>
