@@ -62,10 +62,6 @@ footer a:hover{
         font-size: 3rem;
     }
 
-    header {
-        padding: 0;
-    }
-
     .container {
         width: 100%;
     }
@@ -77,15 +73,8 @@ footer a:hover{
         font-size: 2rem;
     }
 
-    header {
-        padding: 0rem;
-    }
-
     .container {
         width: 100%;
     }
 
-    section article {
-        padding: 1rem 1rem 1rem 1rem;
-    }
 }
