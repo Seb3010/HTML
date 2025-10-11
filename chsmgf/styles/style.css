@@ -3,9 +3,23 @@ body {
     background-color: lightblue;
     text-align: center;
 }
-@media (max-width: 600px) {
+/* Estilos para tablets y celulares */
+@media (max-width: 768px) {
   body {
     font-size: 16px;
+  }
+  #aviso {
+    padding: 10px;
+  }
+}
+
+/* Estilos solo para celulares */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 1.2em;
   }
 }
 h1 {
