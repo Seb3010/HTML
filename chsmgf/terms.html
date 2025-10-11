@@ -22,10 +22,13 @@
     </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
+  // Importa las funciones de Firebase SDK directamente aquí
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js'
+  import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
+  // Tu configuración de Firebase (¡Asegúrate de reemplazar con tus valores reales!)
+  // Aunque ya la recordamos de tu proyecto 'chismografo-8184b', es una buena práctica
+  // obtenerla de la consola de Firebase para evitar errores.
+        
   const firebaseConfig = {
     apiKey: "AIzaSyDr1gdRN5eJEkTqgT-MMnvJnSqXs32IUTA",
     authDomain: "chismografo-8184b.firebaseapp.com",
@@ -35,25 +38,41 @@
     appId: "1:492422260287:web:ceb2faa553856718223a8a",
     measurementId: "G-DNYGB4N2LZ"
   };
-
+        
+  // Inicializa Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  // Obtén una referencia al servicio de Firestore
   const db = getFirestore(app);
+  // --- Lógica del botón ---
+  // Obtén referencias al botón y al elemento de mensaje de estado
+  const enviarDatosBtn = document.getElementById('enviarDatosBtn');
+  const statusMessage = document.getElementById('statusMessage');
+  // Añade un event listener para el clic del botón
+enviarDatosBtn.addEventListener('click', async () => {
+  statusMessage.textContent = 'Enviando datos...';
+  statusMessage.style.color = 'blue';
+  
+  try {
+      // Los datos que quieres enviar
+      const dataToSend = {
+      mensaje: "¡Un nuevo mensaje del chismógrafo ha sido enviado con éxito!",
+      timestamp: new Date(),
+      autor: "Web App"
+      };
 
-  // Botón para aceptar términos
-  const boton = document.getElementById("acepto");
-  boton.addEventListener("click", async () => {
-    try {
-      await addDoc(collection(db, "consentimientos"), {
-        fecha: new Date(),
-        acepto: true
-      });
-      window.location.href = "inicio.html";
-    } catch (error) {
-      console.error("Error al guardar:", error);
-      alert("Ocurrió un error, intenta nuevamente.");
-    }
-  });
-</script>
+      // Añade un nuevo documento a la colección 'chismes'
+      const docRef = await addDoc(collection(db, "chismes"), dataToSend);
+                
+      console.log("Documento escrito con ID: ", docRef.id);
+      statusMessage.textContent = `¡Datos enviados con éxito! ID: ${docRef.id}`;
+      statusMessage.style.color = 'green';
+  } catch (e) {
+      console.error("Error al añadir el documento: ", e);
+      statusMessage.textContent = `Error al enviar los datos: ${e.message}`;
+      statusMessage.style.color = 'red';
+  }
+
+})
+    </script>
 </body>
 </html>
