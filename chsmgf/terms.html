@@ -19,15 +19,14 @@
             <button id="acepto">Acepto y continuar</button>
           </a>
         </div>
+        <!-- AGREGAMOS UN DIV PARA MOSTRAR MENSAJES DE ESTADO SI LO NECESITAS -->
+        <div id="statusMessage" style="margin-top: 20px; color: grey;"></div>
     </div>
 
 <script type="module">
   // Importa las funciones de Firebase SDK directamente aquí
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js'
   import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
-  // Tu configuración de Firebase (¡Asegúrate de reemplazar con tus valores reales!)
-  // Aunque ya la recordamos de tu proyecto 'chismografo-8184b', es una buena práctica
-  // obtenerla de la consola de Firebase para evitar errores.
         
   const firebaseConfig = {
     apiKey: "AIzaSyDr1gdRN5eJEkTqgT-MMnvJnSqXs32IUTA",
@@ -43,36 +42,54 @@
   const app = initializeApp(firebaseConfig);
   // Obtén una referencia al servicio de Firestore
   const db = getFirestore(app);
+
   // --- Lógica del botón ---
-  // Obtén referencias al botón y al elemento de mensaje de estado
-  const enviarDatosBtn = document.getElementById('enviarDatosBtn');
+  // AHORA APUNTAMOS AL BOTÓN CON ID "acepto"
+  const aceptoBtn = document.getElementById('acepto');
+  // Y al div de mensajes de estado
   const statusMessage = document.getElementById('statusMessage');
-  // Añade un event listener para el clic del botón
-enviarDatosBtn.addEventListener('click', async () => {
-  statusMessage.textContent = 'Enviando datos...';
-  statusMessage.style.color = 'blue';
-  
-  try {
-      // Los datos que quieres enviar
-      const dataToSend = {
-      mensaje: "¡Un nuevo mensaje del chismógrafo ha sido enviado con éxito!",
-      timestamp: new Date(),
-      autor: "Web App"
-      };
 
-      // Añade un nuevo documento a la colección 'chismes'
-      const docRef = await addDoc(collection(db, "chismes"), dataToSend);
-                
-      console.log("Documento escrito con ID: ", docRef.id);
-      statusMessage.textContent = `¡Datos enviados con éxito! ID: ${docRef.id}`;
-      statusMessage.style.color = 'green';
-  } catch (e) {
-      console.error("Error al añadir el documento: ", e);
-      statusMessage.textContent = `Error al enviar los datos: ${e.message}`;
-      statusMessage.style.color = 'red';
+  // Asegúrate de que el botón existe antes de intentar añadir un listener
+  if (aceptoBtn) {
+    aceptoBtn.addEventListener('click', async (event) => {
+      // PREVENIR LA NAVEGACIÓN INMEDIATA DEL <a>
+      // Esto detiene el comportamiento por defecto del enlace, que es ir a inicio.html.
+      // Navegaremos manualmente DESPUÉS de enviar a Firebase.
+      event.preventDefault(); 
+
+      statusMessage.textContent = 'Registrando aceptación...';
+      statusMessage.style.color = 'blue';
+      
+      try {
+          // Datos para registrar la aceptación de los términos
+          const dataToSend = {
+              accion: "Aceptación de Términos",
+              timestamp: new Date(),
+              userAgent: navigator.userAgent // Podrías añadir más datos relevantes
+          };
+
+          // Añade un nuevo documento a una colección diferente, por ejemplo 'aceptaciones'
+          const docRef = await addDoc(collection(db, "aceptaciones"), dataToSend);
+                    
+          console.log("Aceptación registrada con ID: ", docRef.id);
+          statusMessage.textContent = `¡Términos aceptados! Redirigiendo...`;
+          statusMessage.style.color = 'green';
+
+          // Después de registrar en Firebase, navegamos a inicio.html
+          window.location.href = "inicio.html";
+
+      } catch (e) {
+          console.error("Error al registrar la aceptación: ", e);
+          statusMessage.textContent = `Error al registrar: ${e.message}`;
+          statusMessage.style.color = 'red';
+          // Si hay un error, puedes decidir si aun así quieres navegar o no.
+          // Por ahora, si falla el registro, aún te redirigirá.
+          window.location.href = "inicio.html"; 
+      }
+    });
+  } else {
+    console.error("El botón 'acepto' no fue encontrado en el DOM.");
   }
-
-})
-    </script>
+</script>
 </body>
 </html>
