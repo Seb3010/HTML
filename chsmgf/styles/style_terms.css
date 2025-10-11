@@ -62,7 +62,7 @@ body p:hover {
         transition: all 0.3s ease;
         border: 2px solid black;
         border-radius: 10px;
-        height: 120px;
+        height: 200px;
         width: 200px;
         color: black;
     }
@@ -84,7 +84,7 @@ body p:hover {
         transition: all 0.3s ease;
         border: 2px solid black;
         border-radius: 10px;
-        height: 80px;
+        height: 150px;
         width: 150px;
         color: black;
     }
