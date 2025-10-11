@@ -3,28 +3,6 @@ body {
     background-color: lightblue;
     text-align: center;
 }
-/* Estilos para tablets y celulares */
-@media (max-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-  #aviso {
-    padding: 10px;
-  }
-}
-
-/* Estilos solo para celulares */
-@media (max-width: 480px) {
-  body {
-    font-size: 14px;
-  }
-  h1 {
-    font-size: 1.2em;
-  }
-}
-h1 {
-    font-size: 3rem;
-}
 
 .buttons {
     display: flex;
@@ -48,4 +26,68 @@ h1 {
 #email:hover, #home:hover {
     background-color: white;
     box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+}
+
+@media (max-width: 480px) {
+  body {
+    margin: 0;
+    background-color: lightblue;
+    text-align: center;
+}
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;            
+    justify-content: center;
+}
+
+  #email, #home {
+    background-color: white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 60px;
+    width: 100px;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 8px 8px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+  #email:hover, #home:hover {
+    background-color: white;
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+}
+}
+
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+    background-color: lightblue;
+    text-align: center;
+}
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;            
+    justify-content: center;
+}
+
+  #email, #home {
+    background-color: white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 80px;
+    width: 150px;
+    border-radius: 10px;
+    border: 2px solid black;
+    box-shadow: 8px 8px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+  #email:hover, #home:hover {
+    background-color: white;
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+}
 }
