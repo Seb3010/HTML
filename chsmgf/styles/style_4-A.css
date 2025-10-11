@@ -68,7 +68,7 @@ footer a:hover{
 
     .container {
         width: 100%;
-        text-align: center;
+        Padding: 0 15px
     }
 }
 
@@ -84,6 +84,7 @@ footer a:hover{
 
     .container {
         width: 100%;
+        Padding: 0 10px
     }
 
     section article {
