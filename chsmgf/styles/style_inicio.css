@@ -33,3 +33,19 @@ header {
     margin: 0 auto;
     height: 100px;
 }
+
+@media (max-width: 768px) {
+    #A4, #B4, #A5, #B5, #A6 {
+        height: 80px;
+        width: 120px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    #A4, #B4, #A5, #B5, #A6 {
+        height: 60px;
+        width: 100px;
+        font-size: 12px;
+    }
+}
