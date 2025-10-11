@@ -62,6 +62,10 @@ footer a:hover{
         font-size: 3rem;
     }
 
+    header{
+        width: 100%;
+    }
+
     .container{
         text-align: center;
         width: 80%;
@@ -74,6 +78,10 @@ footer a:hover{
         font-size: 2rem;
     }
 
+    header{
+        width: 100%;
+    }
+    
     .container{
         text-align: center;
         width: 80%;
