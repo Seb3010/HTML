@@ -44,3 +44,27 @@ body p:hover {
 #acepto:hover {
     box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
 }
+
+@media (max-width: 768px) {
+    body p {
+        background-color: white;
+        text-align: center;
+        font-size: 14px;
+        margin: 15px;
+        border: 2px solid black;
+        border-radius: 10px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    body p{
+        background-color: white;
+        text-align: center;
+        font-size: 12px;
+        margin: 10px;
+        border: 2px solid black;
+        border-radius: 10px;
+        height: 80px;
+    }
+}
