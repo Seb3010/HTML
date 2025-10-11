@@ -59,14 +59,22 @@ footer a:hover{
 
 @media (max-width: 768px) {
     .container{
-        width: 100%;
+        width: 80%;
         margin: 0 auto;
+    }
+
+    #title{
+        font-size: 3rem;
     }
 }
 
 @media (max-width: 480px) {
     .container{
-        width: 100%;
+        width: 80%;
         margin: 0 auto;
+    }
+
+    #title{
+        font-size: 2rem;
     }
 }
