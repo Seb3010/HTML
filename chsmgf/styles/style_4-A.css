@@ -58,31 +58,35 @@ footer a:hover{
 }
 
 @media (max-width: 768px) {
-    #title{
+    #title {
         font-size: 3rem;
     }
 
-    header{
-        width: 100%;
+    header {
+        padding: 2.5rem 1rem;
     }
 
-    .container{
-        width: 500px;
-        margin: 0 auto;
+    .container {
+        width: 90%;
+        text-align: center;
     }
 }
 
+/* CELULARES */
 @media (max-width: 480px) {
-    #title{
+    #title {
         font-size: 2rem;
     }
 
-    header{
-        width: 100%;
+    header {
+        padding: 2rem 1rem;
     }
 
-    .container{
-        width: 250px;
-        margin: 0 auto;
+    .container {
+        width: 95%;
+    }
+
+    section article {
+        padding: 0.5rem;
     }
 }
