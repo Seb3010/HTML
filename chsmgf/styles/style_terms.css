@@ -57,7 +57,7 @@ body p:hover {
     }
 
     #acepto {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         cursor: pointer;
         transition: all 0.3s ease;
         border: 2px solid black;
@@ -79,7 +79,7 @@ body p:hover {
         height: 150px;
     }
     #acepto {
-        font-size: 1rem;
+        font-size: 1.3rem;
         cursor: pointer;
         transition: all 0.3s ease;
         border: 2px solid black;
