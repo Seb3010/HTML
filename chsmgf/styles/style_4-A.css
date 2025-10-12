@@ -57,6 +57,10 @@ section article h2, section artile p{
     margin: 1rem;
 }
 
+main{
+    flex: 1;
+}
+
 footer{
     background-color: #222;
     border-top: 0.1rem;
