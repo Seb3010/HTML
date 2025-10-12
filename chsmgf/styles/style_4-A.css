@@ -60,10 +60,11 @@ footer a:hover{
 @media (max-width: 768px) {
     #title {
         font-size: 3rem;
+        width: 100%;
     }
 
     .container {
-        width: 110%;
+        width: 100%;
     }
 }
 
@@ -71,9 +72,10 @@ footer a:hover{
 @media (max-width: 480px) {
     #title {
         font-size: 2rem;
+        width: 100%;
     }
 
     .container {
-        width: 110%;
+        width: 100%;
     }
 }
