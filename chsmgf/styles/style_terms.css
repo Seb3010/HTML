@@ -63,7 +63,7 @@ body p:hover {
         border: 2px solid black;
         border-radius: 10px;
         height: 100px;
-        width: 200px;
+        width: 220px;
         color: black;
     }
 }
@@ -76,7 +76,7 @@ body p:hover {
         margin: 10px;
         border: 2px solid black;
         border-radius: 10px;
-        height: 150px;
+        height: 180px;
     }
     #acepto {
         font-size: 1rem;
