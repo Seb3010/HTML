@@ -55,7 +55,7 @@ header {
 .container{
     width: 400px;
     margin: 0 auto;
-    animation: EnterFromButtom 0.5s ease;
+    animation: EnterFromRigth 0.5s ease;
 }
 
 section article{
