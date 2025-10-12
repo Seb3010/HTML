@@ -1,3 +1,13 @@
+@keyframes EnterFromLeft {
+    0% {
+        opacity: 0;
+        transform: translatex(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translatex(0);
+    }
+}
 body {
     margin: 0;
     background-color: lightblue;
@@ -7,6 +17,8 @@ header {
     background-color: #364552;
     color: white;
     padding: 3rem 2rem;
+    animation: EnterFromLeft 0.5s ease;
+
 }
 #title {
     font-size: 4rem;
