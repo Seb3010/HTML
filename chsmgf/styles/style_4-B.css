@@ -56,3 +56,24 @@ footer a:hover{
     text-decoration: underline;
     color: cornflowerblue;
 }
+
+@media (max-width: 768px) {
+    #title {
+        font-size: 3rem;
+    }
+
+    .container {
+        width: 100%;
+    }
+}
+
+/* CELULARES */
+@media (max-width: 480px) {
+    #title {
+        font-size: 2rem;
+    }
+
+    .container {
+        width: 100%;
+    }
+}
