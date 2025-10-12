@@ -1,11 +1,33 @@
 @keyframes EnterFromLeft {
     0% {
         opacity: 0;
-        transform: translatex(-100%);
+        transform: translateX(-100%);
     }
     100% {
         opacity: 1;
-        transform: translatex(0);
+        transform: translateX(0);
+    }
+}
+
+@keyframes EnterFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes EnterFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 body {
@@ -32,7 +54,7 @@ header {
 .container{
     width: 400px;
     margin: 0 auto;
-    animation: EnterFromLeft 0.5s ease;
+    animation: EnterFromButtom 0.5s ease;
 }
 
 section article{
@@ -62,8 +84,8 @@ footer{
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     padding: 3rem;
-
     color: white;
+    animation: EnterFromButtom 0.5s ease;
 
 }
 
