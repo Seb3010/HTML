@@ -55,7 +55,7 @@ header {
 .container{
     width: 400px;
     margin: 0 auto;
-    animation: EnterFromRigth 1s ease;
+    animation: EnterFromRigth 2s ease;
 }
 
 section article{
@@ -86,7 +86,7 @@ footer{
     border-top-right-radius: 0.5rem;
     padding: 3rem;
     color: white;
-    animation: EnterFromButtom 1s ease;
+    animation: EnterFromButtom 3s ease;
 
 }
 
