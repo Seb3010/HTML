@@ -8,14 +8,9 @@
         transform: translatex(0);
     }
 }
-html, body {
+body {
     margin: 0;
     background-color: lightblue;
-}
-
-body{
-    display: flex;
-    flex-direction: column;
 }
 
 header {
@@ -55,10 +50,6 @@ section article:hover{
 
 section article h2, section artile p{
     margin: 1rem;
-}
-
-main{
-    flex: 1;
 }
 
 footer{
