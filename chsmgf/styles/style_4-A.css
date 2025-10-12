@@ -53,6 +53,7 @@ section article h2, section artile p{
 }
 
 footer{
+    position: fixed;
     bottom: 0;
     right: 0;
     background-color: #222;
