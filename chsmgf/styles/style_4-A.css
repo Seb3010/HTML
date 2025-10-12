@@ -53,7 +53,7 @@ section article h2, section artile p{
 }
 
 footer{
-      position: fixed;    /* Se fija a la pantalla */
+    position: fixed;    /* Se fija a la pantalla */
     bottom: 0;          /* Pegado al borde inferior */
     left: 0;            /* Alineado al borde izquierdo */
     width: 100%;  
