@@ -49,13 +49,13 @@ header {
 #title {
     font-size: 4rem;
     text-align: center;
-    animation: EnterFromLeft 0.5s ease;
+    animation: EnterFromLeft 1s ease;
 }
 
 .container{
     width: 400px;
     margin: 0 auto;
-    animation: EnterFromRigth 0.5s ease;
+    animation: EnterFromRigth 1s ease;
 }
 
 section article{
@@ -86,7 +86,7 @@ footer{
     border-top-right-radius: 0.5rem;
     padding: 3rem;
     color: white;
-    animation: EnterFromButtom 0.5s ease;
+    animation: EnterFromButtom 1s ease;
 
 }
 
