@@ -53,11 +53,16 @@ section article h2, section artile p{
 }
 
 footer{
+      position: fixed;    /* Se fija a la pantalla */
+    bottom: 0;          /* Pegado al borde inferior */
+    left: 0;            /* Alineado al borde izquierdo */
+    width: 100%;  
     background-color: #222;
     border-top: 0.1rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     padding: 3rem;
+
     color: white;
 
 }
