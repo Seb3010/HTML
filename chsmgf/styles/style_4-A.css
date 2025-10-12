@@ -55,7 +55,8 @@ section article h2, section artile p{
 footer{
     background-color: #222;
     border-top: 0.1rem;
-    border-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     padding: 3rem;
     color: white;
 
