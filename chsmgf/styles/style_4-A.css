@@ -52,7 +52,11 @@ section article h2, section artile p{
 
 footer{
     background-color: #222;
+    border-radius: 0.5rem;
     padding: 3rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     color: white;
 
 }
