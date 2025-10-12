@@ -17,7 +17,7 @@ header {
     background-color: #364552;
     color: white;
     padding: 3rem 2rem;
-    border-bottom: 0.1rem
+    border-bottom: 0.1rem;
     border-radius: 0.5rem;
     animation: EnterFromLeft 0.5s ease;
 
@@ -53,7 +53,7 @@ section article h2, section artile p{
 
 footer{
     background-color: #222;
-    border-top: 0.1rem
+    border-top: 0.1rem;
     border-radius: 0.5rem;
     padding: 3rem;
     color: white;
