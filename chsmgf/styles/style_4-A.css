@@ -18,7 +18,8 @@ header {
     color: white;
     padding: 3rem 2rem;
     border-bottom: 0.1rem;
-    border-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
     animation: EnterFromLeft 0.5s ease;
 
 }
