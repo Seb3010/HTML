@@ -87,6 +87,7 @@ footer{
     padding: 1rem;
     color: white;
     animation: EnterFromRight 3s ease;
+    box-sizing: border-box;
 }
 
 #return{
@@ -95,6 +96,7 @@ footer{
 
 .footer{
     float: right;
+    gap: 0.5rem;
 }
 
 footer a{
