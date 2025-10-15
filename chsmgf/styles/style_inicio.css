@@ -62,6 +62,7 @@ header {
 
 #text {
     color: white;
+    animation: EnterFromLeft 2s ease;
 }
 
 @media (max-width: 768px) {
