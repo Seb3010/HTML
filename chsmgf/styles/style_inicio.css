@@ -56,6 +56,9 @@ header {
     height: 100px;
     background-color: #364552;
     animation: EnterFormLeft 3s ease;
+    border-bottom: 0.1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 
 #text {
