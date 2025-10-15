@@ -1,3 +1,24 @@
+@keyframes EnterFormLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes EnterFormRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 body {
     margin: 0;
     background-color: lightblue;
@@ -9,6 +30,7 @@ body {
     gap: 10px;
     flex-wrap: wrap;            
     justify-content: center;
+    animation: EnterFormRight 3s ease;
 }   
 
 #A4, #B4, #A5, #B5, #A6 {
@@ -32,6 +54,8 @@ header {
     text-align: center;
     margin: 0 auto;
     height: 100px;
+    background-color: #364552;
+    animation: EnterFormLeft 3s ease;
 }
 
 @media (max-width: 768px) {
