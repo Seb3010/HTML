@@ -31,11 +31,11 @@ header {
     border-bottom: 0.1rem;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    animation: EnterFromLeft 2s ease;
+    animation: EnterFromRight 2s ease;
 }
 
 #text {
-    font-size: 4rem;
+    font-size: 3rem;
     text-align: center;
     animation: EnterFromLeft 2s ease;
 }
