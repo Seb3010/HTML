@@ -90,7 +90,11 @@ footer{
 
 }
 
-footer section{
+#return{
+    float: left;
+}
+
+.footer{
     float: right;
 }
 
