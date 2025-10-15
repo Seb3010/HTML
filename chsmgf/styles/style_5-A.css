@@ -84,14 +84,20 @@ footer{
     border-top: 0.1rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    padding: 3rem;
+    padding: 1rem;
     color: white;
     animation: EnterFromRight 3s ease;
-
+    box-sizing: border-box;
 }
 
-footer section{
+#return{
+    float: left;
+    box-shadow: 8px 8px 12px rgba(0,0,0,0.3);
+}
+
+.footer{
     float: right;
+    padding: 5px;
 }
 
 footer a{
@@ -104,6 +110,7 @@ footer a{
 footer a:hover{
     text-decoration: underline;
     color: cornflowerblue;
+    transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
