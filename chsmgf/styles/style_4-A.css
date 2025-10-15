@@ -96,7 +96,7 @@ footer{
 
 .footer{
     float: right;
-    gap: 0.5rem;
+    padding-left: 10px;
 }
 
 footer a{
