@@ -24,13 +24,13 @@ body {
     margin: 0;
     background-color: lightblue;
     text-align: center;
-
+    animation: EnterFromLeft 2s ease;
 }
 
 body h1 {
     text-align: center;
-    font-size: 3rem;;
-    background-color: #364552;
+    font-size: 3rem;
+    animation: EnterFromLeft 2s ease;
 }
 
 body p {
@@ -41,6 +41,7 @@ body p {
     border: 2px solid black;
     border-radius: 10px;
     height: 150px;
+    animation: EnterFromRight 2s ease;
 }
 
 body p:hover {
