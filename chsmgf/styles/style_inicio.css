@@ -34,6 +34,7 @@ header {
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     animation: EnterFromRight 2s ease;
+    margin-bottom: 2rem; 
 }
 
 #text {
