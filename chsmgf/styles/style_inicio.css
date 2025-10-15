@@ -51,14 +51,13 @@ body {
 }
 
 header {
-    text-align: center;
-    margin: 0 auto;
-    height: 100px;
     background-color: #364552;
-    animation: EnterFormLeft 3s ease;
+    color: white;
+    padding: 3rem 2rem;
     border-bottom: 0.1rem;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+    animation: EnterFromLeft 2s ease;
 }
 
 #text {
