@@ -24,6 +24,22 @@ body {
     background-color: lightblue;
 }
 
+header {
+    background-color: #364552;
+    color: white;
+    padding: 3rem 2rem;
+    border-bottom: 0.1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    animation: EnterFromLeft 2s ease;
+}
+
+#text {
+    font-size: 4rem;
+    text-align: center;
+    animation: EnterFromLeft 2s ease;
+}
+
 .scr {
     display: flex;
     gap: 10px;
@@ -49,20 +65,6 @@ body {
     transform: scale(1.05);
 }
 
-header {
-    background-color: #364552;
-    color: white;
-    padding: 3rem 2rem;
-    border-bottom: 0.1rem;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    animation: EnterFromLeft 2s ease;
-}
-
-#text {
-    color: white;
-    animation: EnterFromLeft 2s ease;
-}
 
 @media (max-width: 768px) {
     #A4, #B4, #A5, #B5, #A6 {
