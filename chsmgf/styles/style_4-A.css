@@ -43,19 +43,19 @@ header {
     border-bottom: 0.1rem;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    animation: EnterFromLeft 0.5s ease;
+    animation: EnterFromLeft 2s ease;
 
 }
 #title {
     font-size: 4rem;
     text-align: center;
-    animation: EnterFromLeft 1s ease;
+    animation: EnterFromLeft 2s ease;
 }
 
 .container{
     width: 400px;
     margin: 0 auto;
-    animation: EnterFromRigth 2s ease;
+    animation: EnterFromRigth 3s ease;
 }
 
 section article{
