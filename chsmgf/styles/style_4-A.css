@@ -87,7 +87,6 @@ footer{
     padding: 1rem;
     color: white;
     animation: EnterFromRight 3s ease;
-    box-sizing: border-box;
 }
 
 #return{
