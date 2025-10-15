@@ -1,3 +1,36 @@
+@keyframes EnterFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes EnterFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes EnterFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 body {
     margin: 0;
     background-color: lightblue;
@@ -7,15 +40,22 @@ header {
     background-color: #364552;
     color: white;
     padding: 3rem 2rem;
+    border-bottom: 0.1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    animation: EnterFromLeft 2s ease;
+
 }
 #title {
     font-size: 4rem;
     text-align: center;
+    animation: EnterFromLeft 2s ease;
 }
 
 .container{
     width: 400px;
     margin: 0 auto;
+    animation: EnterFromRight 3s ease;
 }
 
 section article{
@@ -36,9 +76,17 @@ section article h2, section artile p{
 }
 
 footer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;  
     background-color: #222;
+    border-top: 0.1rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     padding: 3rem;
     color: white;
+    animation: EnterFromRight 3s ease;
 
 }
 
@@ -50,6 +98,7 @@ footer a{
     transition: color 0.3s ease;
     color: #fff;
     text-decoration: none;
+    animation: EnterFromButtom 3s ease;
 }
 
 footer a:hover{
@@ -60,6 +109,7 @@ footer a:hover{
 @media (max-width: 768px) {
     #title {
         font-size: 3rem;
+        width: 100%;
     }
 
     .container {
@@ -71,6 +121,7 @@ footer a:hover{
 @media (max-width: 480px) {
     #title {
         font-size: 2rem;
+        width: 100%;
     }
 
     .container {
