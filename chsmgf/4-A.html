@@ -2,8 +2,11 @@
 <html lang="es">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chismógrafo</title>
+    <title>Chismógrafo (Salón 4-A)</title>
     <link rel="stylesheet" href="styles/style_4-A.css">
+    <script>
+        const CLASE_ID = "salon_4-a"; 
+    </script>
 </head>
 <body>
     <header>
@@ -83,14 +86,14 @@
     </footer>
 
     <script type="module">
-        // ==== IMPORTACIONES FIREBASE ====
+        // ==== IMPORTACIONES FIREBASE (sin cambios) ====
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
         import { 
             getFirestore, collection, addDoc, doc, setDoc, deleteDoc, getDoc,
             query, orderBy, onSnapshot, where, serverTimestamp
         } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
 
-        // ==== CONFIGURACIÓN FIREBASE ====
+        // ==== CONFIGURACIÓN FIREBASE (sin cambios) ====
         const firebaseConfig = {
             apiKey: "AIzaSyDr1gdRN5eJEkTqgT-MMnvJnSqXs32IUTA",
             authDomain: "chismografo-8184b.firebaseapp.com",
@@ -104,16 +107,31 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // ==== ID de usuario (único por navegador) ====
+        // ==== ID de usuario (único por navegador) (sin cambios) ====
         if (!localStorage.getItem("userId")) {
             localStorage.setItem("userId", crypto.randomUUID());
         }
         const USER_ID = localStorage.getItem("userId");
+        
+        // 🚨 La variable CLASE_ID ahora está definida en el <head> y es global aquí
 
-        // ==== Función para renderizar comentario ====
+        // 🟢 FUNCIÓN DE RUTA: Define la colección de comentarios anidada por salón
+        const getCommentsCollectionRef = (postId) => {
+             // Ruta: salones/[CLASE_ID]/posts/[postId]/comentarios
+            return collection(db, "salones", CLASE_ID, "posts", postId, "comentarios");
+        }
+        
+        // 🟢 FUNCIÓN DE RUTA: Define la colección de reacciones anidada por salón
+        const getReactionDocRef = (postId) => {
+            // Document ID ÚNICO: [CLASE_ID]_[postId]_[userId]
+            const reactionDocId = `${CLASE_ID}_${postId}_${USER_ID}`;
+            return doc(db, "reacciones", reactionDocId);
+        }
+        
+        // ==== Función para renderizar comentario (sin cambios) ====
         const renderComment = (commentData) => {
             const commentDiv = document.createElement('div');
-            commentDiv.classList.add('comment');
+            // ... (código anterior) ...
             
             let formattedDate = '';
             if (commentData.timestamp?.seconds) {
@@ -127,7 +145,7 @@
 
             const contentP = document.createElement('p');
             contentP.classList.add('comment-content');
-            contentP.textContent = commentData.contenido; // protección XSS
+            contentP.textContent = commentData.contenido;
 
             commentDiv.appendChild(userSpan);
             commentDiv.appendChild(contentP);
@@ -135,10 +153,13 @@
             return commentDiv;
         };
 
-        // ==== Escuchar comentarios en tiempo real ====
+        // ==== Escuchar comentarios en tiempo real (MODIFICADO) ====
         const subscribeToComments = (postId) => {
             const commentsList = document.getElementById(`comments-list-${postId}`);
-            const commentsRef = collection(db, "posts", postId, "comentarios");
+            
+            // 🟢 Usa la nueva función de ruta para comentarios
+            const commentsRef = getCommentsCollectionRef(postId);
+            
             const q = query(commentsRef, orderBy("timestamp", "desc"));
 
             onSnapshot(q, (snapshot) => {
@@ -149,10 +170,12 @@
             });
         };
 
-        // ==== Escuchar reacciones en tiempo real ====
+        // ==== Escuchar reacciones en tiempo real (MODIFICADO) ====
         const subscribeToReactions = (postId) => {
             const reactionsRef = collection(db, "reacciones");
-            const q = query(reactionsRef, where("postId", "==", postId));
+            
+            // 🟢 Filtra por el postId Y el CLASE_ID para asegurar que solo cuentas reacciones de este salón
+            const q = query(reactionsRef, where("postId", "==", postId), where("claseId", "==", CLASE_ID));
 
             onSnapshot(q, (snapshot) => {
                 const counts = { like: 0, love: 0, funny: 0 };
@@ -176,7 +199,7 @@
             });
         };
 
-        // ==== Envío de comentarios ====
+        // ==== Envío de comentarios (MODIFICADO) ====
         document.querySelectorAll('.comment-form').forEach(form => {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -187,7 +210,8 @@
                 if (!text) return;
 
                 try {
-                    await addDoc(collection(db, "posts", postId, "comentarios"), {
+                    // 🟢 Usa la nueva función de ruta para comentarios
+                    await addDoc(getCommentsCollectionRef(postId), {
                         contenido: text,
                         usuario: "Usuario Anónimo",
                         timestamp: serverTimestamp()
@@ -199,29 +223,37 @@
             });
         });
 
-        // ==== Manejo de reacciones ====
+        // ==== Manejo de reacciones (MODIFICADO) ====
         document.querySelectorAll('.reaction-btn').forEach(button => {
             button.addEventListener('click', async () => {
                 const postEl = button.closest('.post');
                 const postId = postEl.dataset.postId;
                 const type = button.dataset.reactionType;
-                const reactionRef = doc(db, "reacciones", `${postId}_${USER_ID}`);
+                
+                // 🟢 Usa la nueva función de referencia
+                const reactionRef = getReactionDocRef(postId); 
 
                 try {
                     const snap = await getDoc(reactionRef);
+                    
+                    // 🟢 Añadir 'claseId' a los datos de la reacción
+                    const reactionData = {
+                        postId, 
+                        userId: USER_ID, 
+                        tipo: type, 
+                        timestamp: serverTimestamp(),
+                        claseId: CLASE_ID // ⬅️ CRÍTICO para el filtrado
+                    };
+
                     if (snap.exists()) {
                         const currentType = snap.data().tipo;
                         if (currentType === type) {
                             await deleteDoc(reactionRef); // quitar reacción
                         } else {
-                            await setDoc(reactionRef, {
-                                postId, userId: USER_ID, tipo: type, timestamp: serverTimestamp()
-                            });
+                            await setDoc(reactionRef, reactionData);
                         }
                     } else {
-                        await setDoc(reactionRef, {
-                            postId, userId: USER_ID, tipo: type, timestamp: serverTimestamp()
-                        });
+                        await setDoc(reactionRef, reactionData);
                     }
                 } catch (err) {
                     console.error("Error al manejar reacción:", err);
@@ -229,7 +261,7 @@
             });
         });
 
-        // ==== Inicializar escuchas ====
+        // ==== Inicializar escuchas (sin cambios) ====
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.post').forEach(post => {
                 const id = post.dataset.postId;
