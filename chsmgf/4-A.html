@@ -29,8 +29,6 @@
                     <button type="submit">Enviar</button>
                 </form>
                 <div class="comments-list" id="comments-list-1">
-                    <div class="comment">
-                    </div>
                 </div>
             </div>
         </article>
@@ -52,8 +50,6 @@
                     <button type="submit">Enviar</button>
                 </form>
                 <div class="comments-list" id="comments-list-2">
-                    <div class="comment">
-                    </div>
                 </div>
             </div>
         </article>
@@ -75,8 +71,6 @@
                     <button type="submit">Enviar</button>
                 </form>
                 <div class="comments-list" id="comments-list-3">
-                    <div class="comment">
-                    </div>
                 </div>
             </div>
         </article>
@@ -86,7 +80,7 @@
     <footer></footer>
 
     <script type="module">
-        // 1. IMPORTACIONES DE FIREBASE
+        // 1. IMPORTACIONES DE FIREBASE (Añadidas query, orderBy, onSnapshot, where)
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js'
         import { 
             getFirestore, 
@@ -95,7 +89,11 @@
             doc, 
             setDoc, 
             deleteDoc, 
-            getDoc 
+            getDoc,
+            query,
+            orderBy,
+            onSnapshot,
+            where
         } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
 
         // 2. CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE
@@ -112,10 +110,108 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // ID TEMPORAL para pruebas. DEBE ser reemplazado por el ID del usuario autenticado.
+        // ID TEMPORAL. ¡Reemplazar por el ID de usuario real!
         const TEST_USER_ID = "usuario_de_prueba_123"; 
 
-        // --- A. Lógica para Enviar Comentarios (Form Submit) ---
+
+        // ====================================================
+        // === FUNCIONES DE LECTURA Y RENDERIZADO (Real-Time) ===
+        // ====================================================
+
+        // Helper para renderizar un comentario en HTML
+        const renderComment = (commentData) => {
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            
+            // Intenta formatear la fecha si existe (el timestamp es de Firestore)
+            let formattedDate = '';
+            if (commentData.timestamp && commentData.timestamp.seconds) {
+                const date = new Date(commentData.timestamp.seconds * 1000);
+                formattedDate = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) + ' ' + date.toLocaleDateString('es-ES');
+            }
+
+            commentDiv.innerHTML = `
+                <span class="comment-user"><strong>${commentData.usuario}</strong> (${formattedDate}):</span>
+                <p class="comment-content">${commentData.contenido}</p>
+            `;
+            return commentDiv;
+        };
+
+        // 1. Función para escuchar y mostrar COMENTARIOS en tiempo real
+        const subscribeToComments = (postId) => {
+            const commentsListElement = document.getElementById(`comments-list-${postId}`);
+            const commentsRef = collection(db, "posts", postId, "comentarios");
+            
+            // Consulta: ordenar por timestamp descendente para ver los nuevos primero
+            const q = query(commentsRef, orderBy("timestamp", "desc"));
+
+            // Listener en tiempo real con onSnapshot
+            onSnapshot(q, (snapshot) => {
+                commentsListElement.innerHTML = ''; // Limpiar lista
+                
+                snapshot.forEach((doc) => {
+                    const commentData = doc.data();
+                    const newCommentElement = renderComment(commentData);
+                    commentsListElement.appendChild(newCommentElement);
+                });
+            }, (error) => {
+                console.error("Error al escuchar comentarios: ", error);
+            });
+        };
+
+        // 2. Función para escuchar y actualizar CONTRADORES de reacciones en tiempo real
+        const subscribeToReactions = (postId) => {
+            const reactionsRef = collection(db, "reacciones");
+            
+            // Consulta: solo reacciones para este post
+            const q = query(reactionsRef, where("postId", "==", postId));
+
+            // Listener en tiempo real con onSnapshot
+            onSnapshot(q, (snapshot) => {
+                let counts = { like: 0, love: 0, funny: 0 };
+                let userReaction = null; 
+
+                // Contar y detectar la reacción del usuario actual
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const reactionType = data.tipo;
+                    
+                    if (counts.hasOwnProperty(reactionType)) {
+                        counts[reactionType]++;
+                    }
+
+                    if (data.userId === TEST_USER_ID) {
+                        userReaction = reactionType; // Guarda la reacción activa del usuario
+                    }
+                });
+
+                // Actualizar el DOM con los nuevos conteos
+                document.getElementById(`like-count-${postId}`).textContent = counts.like;
+                document.getElementById(`love-count-${postId}`).textContent = counts.love;
+                document.getElementById(`funny-count-${postId}`).textContent = counts.funny;
+                
+                // Actualizar el estilo del botón activo (el que el usuario clickeó)
+                const buttons = document.querySelectorAll(`[data-post-id="${postId}"] .reaction-btn`);
+                buttons.forEach(btn => {
+                    btn.style.opacity = 0.7; // Estilo base
+                    if (btn.getAttribute('data-reaction-type') === userReaction) {
+                        btn.style.opacity = 1.0; // Resaltar el botón activo
+                        btn.style.fontWeight = 'bold';
+                    } else {
+                        btn.style.fontWeight = 'normal';
+                    }
+                });
+            }, (error) => {
+                console.error("Error al escuchar reacciones: ", error);
+            });
+        };
+
+
+        // ===========================================
+        // === LÓGICA DE ENVÍO DE DATOS (ESCRITURA) ===
+        // ===========================================
+
+        // A. Lógica para Enviar Comentarios (Form Submit)
         const commentForms = document.querySelectorAll('.comment-form');
 
         commentForms.forEach(form => {
@@ -130,28 +226,23 @@
                 if (commentContent === "") return;
 
                 try {
-                    // Guarda en la subcolección: /posts/{postId}/comentarios
                     const commentsRef = collection(db, "posts", postId, "comentarios");
                     
                     await addDoc(commentsRef, {
                         contenido: commentContent,
-                        usuario: "Usuario Anónimo", 
+                        usuario: "Usuario Anónimo", // REEMPLAZAR con usuario real
                         timestamp: new Date()
                     });
                     
-                    console.log(`Comentario enviado al Post ${postId}.`);
-                    commentInput.value = ''; // Limpiar
+                    commentInput.value = ''; // Limpiar el campo
                     
-                    // Aquí, una función debería refrescar la lista visualmente.
-
                 } catch (error) {
                     console.error("Error al enviar el comentario: ", error);
-                    alert("Error al enviar el comentario.");
                 }
             });
         });
 
-        // --- B. Lógica para Manejar Reacciones (Toggle) ---
+        // B. Lógica para Manejar Reacciones (Toggle)
         const reactionButtons = document.querySelectorAll('.reaction-btn');
 
         reactionButtons.forEach(button => {
@@ -160,7 +251,6 @@
                 const postId = postElement.getAttribute('data-post-id');
                 const reactionType = button.getAttribute('data-reaction-type');
 
-                // ID compuesto único: {postId}_{userId}
                 const reactionDocId = `${postId}_${TEST_USER_ID}`;
                 const reactionRef = doc(db, "reacciones", reactionDocId); 
                 
@@ -171,37 +261,46 @@
                         const existingType = reactionDoc.data().tipo;
 
                         if (existingType === reactionType) {
-                            // ELIMINAR (toggle off)
-                            await deleteDoc(reactionRef);
-                            console.log(`Reacción (${reactionType}) eliminada.`);
+                            await deleteDoc(reactionRef); // ELIMINAR (toggle off)
                         } else {
-                            // ACTUALIZAR (cambiar de tipo)
-                            await setDoc(reactionRef, {
+                            await setDoc(reactionRef, { // ACTUALIZAR (cambiar de tipo)
                                 postId: postId,
                                 userId: TEST_USER_ID,
                                 tipo: reactionType,
                                 timestamp: new Date()
                             });
-                            console.log(`Reacción cambiada a ${reactionType}.`);
                         }
                     } else {
-                        // CREAR nueva reacción
-                        await setDoc(reactionRef, {
+                        await setDoc(reactionRef, { // CREAR nueva reacción
                             postId: postId,
                             userId: TEST_USER_ID,
                             tipo: reactionType,
                             timestamp: new Date()
                         });
-                        console.log(`Nueva reacción de tipo ${reactionType} creada.`);
                     }
-
-                    // Aquí, una función debería actualizar los contadores en pantalla.
 
                 } catch (error) {
                     console.error("Error al manejar la reacción: ", error);
                 }
             });
         });
+
+        // ====================================================
+        // === INICIO: SUSCRIBIRSE A DATOS AL CARGAR LA PÁGINA ===
+        // ====================================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const allPosts = document.querySelectorAll('.post');
+            allPosts.forEach(post => {
+                const postId = post.getAttribute('data-post-id');
+                
+                // Iniciar la escucha de comentarios
+                subscribeToComments(postId);
+
+                // Iniciar la escucha de reacciones
+                subscribeToReactions(postId);
+            });
+        });
     </script>
-    </body>
+</body>
 </html>
