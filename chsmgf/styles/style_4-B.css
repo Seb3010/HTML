@@ -76,9 +76,6 @@ section article h2, section artile p{
 }
 
 footer{
-    position: fixed;
-    bottom: 0;
-    right: 0;
     width: 100%;  
     background-color: #222;
     border-top: 0.1rem;
@@ -88,6 +85,10 @@ footer{
     color: white;
     animation: EnterFromRight 3s ease;
     box-sizing: border-box;
+}
+
+#Regresar{
+    color: black;
 }
 
 #return{
@@ -135,4 +136,3 @@ footer a:hover{
         width: 100%;
     }
 }
-
