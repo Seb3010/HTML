@@ -4,15 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chismografo</title>
     <link rel="stylesheet" href="styles/style_4-A.css" />
-    </head>
+</head>
 <body>
     <header>
         <h1 id="title">Chismografo</h1>
     </header>
+    
     <section class="container">
         
-        <article class="post" data-post-id="1"> <h2>Titulo del chisme</h2>
-            <p>descripcion</p>
+        <article class="post" data-post-id="1"> 
+            <h2>Titulo del chisme 1</h2>
+            <p>descripcion del chisme 1</p>
 
             <div class="reactions-container">
                 <button class="reaction-btn" data-reaction-type="like">👍 Me gusta (<span class="count" id="like-count-1">0</span>)</button>
@@ -22,12 +24,10 @@
             
             <div class="comments-section">
                 <h3>Comentarios</h3>
-                
                 <form class="comment-form">
                     <input type="text" placeholder="Escribe tu comentario..." required>
                     <button type="submit">Enviar</button>
                 </form>
-                
                 <div class="comments-list" id="comments-list-1">
                     <div class="comment">
                         <span class="comment-user">Usuario Ejemplo:</span>
@@ -37,61 +37,177 @@
             </div>
         </article>
 
-        <article class="post" data-post-id="1"> <h2>Titulo del chisme</h2>
-            <p>descripcion</p>
+        <article class="post" data-post-id="2"> 
+            <h2>Titulo del chisme 2</h2>
+            <p>descripcion del chisme 2</p>
 
             <div class="reactions-container">
-                <button class="reaction-btn" data-reaction-type="like">👍 Me gusta (<span class="count" id="like-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="love">❤️ Me encanta (<span class="count" id="love-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="funny">😂 Gracioso (<span class="count" id="funny-count-1">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="like">👍 Me gusta (<span class="count" id="like-count-2">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="love">❤️ Me encanta (<span class="count" id="love-count-2">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="funny">😂 Gracioso (<span class="count" id="funny-count-2">0</span>)</button>
             </div>
             
             <div class="comments-section">
                 <h3>Comentarios</h3>
-                
                 <form class="comment-form">
                     <input type="text" placeholder="Escribe tu comentario..." required>
                     <button type="submit">Enviar</button>
                 </form>
-                
-                <div class="comments-list" id="comments-list-1">
+                <div class="comments-list" id="comments-list-2">
                     <div class="comment">
                         <span class="comment-user">Usuario Ejemplo:</span>
-                        <p class="comment-content">¡Qué interesante chisme!</p>
+                        <p class="comment-content">¡Otro gran chisme!</p>
                     </div>
                 </div>
             </div>
         </article>
 
-        <article class="post" data-post-id="1"> <h2>Titulo del chisme</h2>
-            <p>descripcion</p>
+        <article class="post" data-post-id="3"> 
+            <h2>Titulo del chisme 3</h2>
+            <p>descripcion del chsime 3</p>
 
             <div class="reactions-container">
-                <button class="reaction-btn" data-reaction-type="like">👍 Me gusta (<span class="count" id="like-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="love">❤️ Me encanta (<span class="count" id="love-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="funny">😂 Gracioso (<span class="count" id="funny-count-1">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="like">👍 Me gusta (<span class="count" id="like-count-3">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="love">❤️ Me encanta (<span class="count" id="love-count-3">0</span>)</button>
+                <button class="reaction-btn" data-reaction-type="funny">😂 Gracioso (<span class="count" id="funny-count-3">0</span>)</button>
             </div>
             
             <div class="comments-section">
                 <h3>Comentarios</h3>
-                
                 <form class="comment-form">
                     <input type="text" placeholder="Escribe tu comentario..." required>
                     <button type="submit">Enviar</button>
                 </form>
-                <div class="comments-list" id="comments-list-1">
+                <div class="comments-list" id="comments-list-3">
                     <div class="comment">
                         <span class="comment-user">Usuario Ejemplo:</span>
-                        <p class="comment-content">¡Qué interesante chisme!</p>
+                        <p class="comment-content">¡La mejor descripción!</p>
                     </div>
                 </div>
             </div>
         </article>
         
     </section>
-    <main>
-    </main>
-    <footer>
-        </footer>
-</body>
+    <main></main>
+    <footer></footer>
+
+    <script type="module">
+        // 1. IMPORTACIONES DE FIREBASE
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js'
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            doc, 
+            setDoc, 
+            deleteDoc, 
+            getDoc 
+        } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
+
+        // 2. CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyDr1gdRN5eJEkTqgT-MMnvJnSqXs32IUTA",
+            authDomain: "chismografo-8184b.firebaseapp.com",
+            projectId: "chismografo-8184b",
+            storageBucket: "chismografo-8184b.firebasestorage.app",
+            messagingSenderId: "492422260287",
+            appId: "1:492422260287:web:ceb2faa553856718223a8a",
+            measurementId: "G-DNYGB4N2LZ"
+        };
+                
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ID TEMPORAL para pruebas. DEBE ser reemplazado por el ID del usuario autenticado.
+        const TEST_USER_ID = "usuario_de_prueba_123"; 
+
+        // --- A. Lógica para Enviar Comentarios (Form Submit) ---
+        const commentForms = document.querySelectorAll('.comment-form');
+
+        commentForms.forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+
+                const postElement = form.closest('.post');
+                const postId = postElement.getAttribute('data-post-id');
+                const commentInput = form.querySelector('input[type="text"]');
+                const commentContent = commentInput.value.trim();
+
+                if (commentContent === "") return;
+
+                try {
+                    // Guarda en la subcolección: /posts/{postId}/comentarios
+                    const commentsRef = collection(db, "posts", postId, "comentarios");
+                    
+                    await addDoc(commentsRef, {
+                        contenido: commentContent,
+                        usuario: "Usuario Anónimo", 
+                        timestamp: new Date()
+                    });
+                    
+                    console.log(`Comentario enviado al Post ${postId}.`);
+                    commentInput.value = ''; // Limpiar
+                    
+                    // Aquí, una función debería refrescar la lista visualmente.
+
+                } catch (error) {
+                    console.error("Error al enviar el comentario: ", error);
+                    alert("Error al enviar el comentario.");
+                }
+            });
+        });
+
+        // --- B. Lógica para Manejar Reacciones (Toggle) ---
+        const reactionButtons = document.querySelectorAll('.reaction-btn');
+
+        reactionButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const postElement = button.closest('.post');
+                const postId = postElement.getAttribute('data-post-id');
+                const reactionType = button.getAttribute('data-reaction-type');
+
+                // ID compuesto único: {postId}_{userId}
+                const reactionDocId = `${postId}_${TEST_USER_ID}`;
+                const reactionRef = doc(db, "reacciones", reactionDocId); 
+                
+                try {
+                    const reactionDoc = await getDoc(reactionRef);
+
+                    if (reactionDoc.exists()) {
+                        const existingType = reactionDoc.data().tipo;
+
+                        if (existingType === reactionType) {
+                            // ELIMINAR (toggle off)
+                            await deleteDoc(reactionRef);
+                            console.log(`Reacción (${reactionType}) eliminada.`);
+                        } else {
+                            // ACTUALIZAR (cambiar de tipo)
+                            await setDoc(reactionRef, {
+                                postId: postId,
+                                userId: TEST_USER_ID,
+                                tipo: reactionType,
+                                timestamp: new Date()
+                            });
+                            console.log(`Reacción cambiada a ${reactionType}.`);
+                        }
+                    } else {
+                        // CREAR nueva reacción
+                        await setDoc(reactionRef, {
+                            postId: postId,
+                            userId: TEST_USER_ID,
+                            tipo: reactionType,
+                            timestamp: new Date()
+                        });
+                        console.log(`Nueva reacción de tipo ${reactionType} creada.`);
+                    }
+
+                    // Aquí, una función debería actualizar los contadores en pantalla.
+
+                } catch (error) {
+                    console.error("Error al manejar la reacción: ", error);
+                }
+            });
+        });
+    </script>
+    </body>
 </html>
