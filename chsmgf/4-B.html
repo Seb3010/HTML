@@ -49,13 +49,13 @@
         }
         const USER_ID = localStorage.getItem("userId");
 
-        // --- 🔑 DATOS DE POSTS: Agrega o modifica posts SOLAMENTE aquí ---
+        // --- 🔑 DATOS DE POSTS: Aquí se define la lista de posts ---
         const POSTS_DATA = [
             { id: "1", title: "Título del chisme 1", description: "Descripción del chisme 1" },
             { id: "2", title: "Título del chisme 2", description: "Descripción del chisme 2" },
             { id: "3", title: "Título del chisme 3", description: "Descripción del chisme 3" },
-            { id: "4", title: "Nuevo Chisme Dinámico", description: "¡Mira, este post se agregó sin tocar el HTML!" }
-            // Agrega más objetos aquí para más posts
+            { id: "4", title: "Chisme Fresco", description: "¡Este es el 4to post agregado dinámicamente!" },
+            { id: "5", title: "Chisme Secreto", description: "Una revelación impactante en el campus, ¡corre la voz!" }
         ];
         // ------------------------------------------------------------------
 
@@ -85,7 +85,7 @@
             `;
         };
         
-        // ==== Función para renderizar comentario (sin cambios) ====
+        // ==== Función para renderizar comentario ====
         const renderComment = (commentData) => {
             const commentDiv = document.createElement('div');
             commentDiv.classList.add('comment');
@@ -110,24 +110,23 @@
             return commentDiv;
         };
 
-        // ==== Escuchar comentarios en tiempo real (sin cambios) ====
+        // ==== Escuchar comentarios en tiempo real (Firebase) ====
         const subscribeToComments = (postId) => {
             const commentsList = document.getElementById(`comments-list-${postId}`);
+            if (!commentsList) return; // Asegurar que el elemento existe
+
             const commentsRef = collection(db, "posts", postId, "comentarios");
             const q = query(commentsRef, orderBy("timestamp", "desc"));
 
             onSnapshot(q, (snapshot) => {
-                // Se verifica si el elemento existe antes de manipularlo.
-                if (commentsList) {
-                    commentsList.innerHTML = '';
-                    snapshot.forEach((doc) => {
-                        commentsList.appendChild(renderComment(doc.data()));
-                    });
-                }
+                commentsList.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    commentsList.appendChild(renderComment(doc.data()));
+                });
             });
         };
 
-        // ==== Escuchar reacciones en tiempo real (sin cambios) ====
+        // ==== Escuchar reacciones en tiempo real (Firebase) ====
         const subscribeToReactions = (postId) => {
             const reactionsRef = collection(db, "reacciones");
             const q = query(reactionsRef, where("postId", "==", postId));
@@ -142,26 +141,23 @@
                     if (data.userId === USER_ID) userReaction = data.tipo;
                 });
 
-                // Se verifica si el elemento existe antes de manipularlo.
-                const likeCountEl = document.getElementById(`like-count-${postId}`);
-                const loveCountEl = document.getElementById(`love-count-${postId}`);
-                const funnyCountEl = document.getElementById(`funny-count-${postId}`);
-
-                if (likeCountEl) likeCountEl.textContent = counts.like;
-                if (loveCountEl) loveCountEl.textContent = counts.love;
-                if (funnyCountEl) funnyCountEl.textContent = counts.funny;
-
                 const postEl = document.querySelector(`.post[data-post-id="${postId}"]`);
-                if (postEl) {
-                    postEl.querySelectorAll('.reaction-btn').forEach(btn => {
-                        const type = btn.getAttribute('data-reaction-type');
-                        btn.classList.toggle('active', type === userReaction);
-                    });
-                }
+                if (!postEl) return; // Asegurar que el post existe
+
+                // Actualizar contadores
+                document.getElementById(`like-count-${postId}`).textContent = counts.like;
+                document.getElementById(`love-count-${postId}`).textContent = counts.love;
+                document.getElementById(`funny-count-${postId}`).textContent = counts.funny;
+
+                // Actualizar estilo del botón activo
+                postEl.querySelectorAll('.reaction-btn').forEach(btn => {
+                    const type = btn.getAttribute('data-reaction-type');
+                    btn.classList.toggle('active', type === userReaction);
+                });
             });
         };
         
-        // ==== Manejadores de Eventos (Ahora funciones separadas) ====
+        // ==== Manejadores de Eventos (Ahora funciones separadas para evitar la repetición) ====
 
         const handleCommentSubmit = async (e) => {
             e.preventDefault();
@@ -232,10 +228,13 @@
             });
         };
 
-        // ==== Función Principal de Renderizado ====
+        // ==== Función Principal de Renderizado (Punto de entrada) ====
         const renderAllPosts = () => {
             const container = document.querySelector('.container');
-            if (!container) return; 
+            if (!container) {
+                console.error("No se encontró el contenedor de posts.");
+                return; 
+            }
 
             // 1. Mapea los datos a una sola cadena de HTML
             const postsHTML = POSTS_DATA.map(post => createPostHTML(post)).join('');
@@ -243,13 +242,14 @@
             // 2. Inserta el HTML en el contenedor
             container.innerHTML = postsHTML;
 
-            // 3. Inicializa los eventos y las escuchas de Firebase
+            // 3. Inicializa los eventos y las escuchas de Firebase en los nuevos elementos
             initializePostListeners();
         };
 
         // ==== Inicialización al cargar el DOM ====
         document.addEventListener('DOMContentLoaded', () => {
-            renderAllPosts();
+            // Esta llamada es CRUCIAL. Se ejecuta una vez el DOM esté listo.
+            renderAllPosts(); 
         });
     </script>
 </body>
