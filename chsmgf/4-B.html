@@ -11,68 +11,7 @@
     </header>
     
     <section class="container">
-        
-        <article class="post" data-post-id="1"> 
-            <h2>Título del chisme 1</h2>
-            <p>Descripción del chisme 1</p>
-
-            <div class="reactions-container">
-                <button class="reaction-btn" data-reaction-type="like">👍 (<span class="count" id="like-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="love">❤️ (<span class="count" id="love-count-1">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="funny">😂 (<span class="count" id="funny-count-1">0</span>)</button>
-            </div>
-            
-            <div class="comments-section">
-                <h3>Comentarios</h3>
-                <form class="comment-form">
-                    <input type="text" placeholder="Escribe tu comentario..." required>
-                    <button type="submit">Enviar</button>
-                </form>
-                <div class="comments-list" id="comments-list-1"></div>
-            </div>
-        </article>
-
-        <article class="post" data-post-id="2"> 
-            <h2>Título del chisme 2</h2>
-            <p>Descripción del chisme 2</p>
-
-            <div class="reactions-container">
-                <button class="reaction-btn" data-reaction-type="like">👍 (<span class="count" id="like-count-2">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="love">❤️ (<span class="count" id="love-count-2">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="funny">😂 (<span class="count" id="funny-count-2">0</span>)</button>
-            </div>
-            
-            <div class="comments-section">
-                <h3>Comentarios</h3>
-                <form class="comment-form">
-                    <input type="text" placeholder="Escribe tu comentario..." required>
-                    <button type="submit">Enviar</button>
-                </form>
-                <div class="comments-list" id="comments-list-2"></div>
-            </div>
-        </article>
-
-        <article class="post" data-post-id="3"> 
-            <h2>Título del chisme 3</h2>
-            <p>Descripción del chisme 3</p>
-
-            <div class="reactions-container">
-                <button class="reaction-btn" data-reaction-type="like">👍 (<span class="count" id="like-count-3">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="love">❤️ (<span class="count" id="love-count-3">0</span>)</button>
-                <button class="reaction-btn" data-reaction-type="funny">😂 (<span class="count" id="funny-count-3">0</span>)</button>
-            </div>
-            
-            <div class="comments-section">
-                <h3>Comentarios</h3>
-                <form class="comment-form">
-                    <input type="text" placeholder="Escribe tu comentario..." required>
-                    <button type="submit">Enviar</button>
-                </form>
-                <div class="comments-list" id="comments-list-3"></div>
-            </div>
-        </article>
-        
-    </section>
+        </section>
 
     <footer>
         <section>
@@ -110,7 +49,43 @@
         }
         const USER_ID = localStorage.getItem("userId");
 
-        // ==== Función para renderizar comentario ====
+        // --- 🔑 DATOS DE POSTS: Agrega o modifica posts SOLAMENTE aquí ---
+        const POSTS_DATA = [
+            { id: "1", title: "Título del chisme 1", description: "Descripción del chisme 1" },
+            { id: "2", title: "Título del chisme 2", description: "Descripción del chisme 2" },
+            { id: "3", title: "Título del chisme 3", description: "Descripción del chisme 3" },
+            { id: "4", title: "Nuevo Chisme Dinámico", description: "¡Mira, este post se agregó sin tocar el HTML!" }
+            // Agrega más objetos aquí para más posts
+        ];
+        // ------------------------------------------------------------------
+
+
+        // ==== Función para generar el HTML de un Post ====
+        const createPostHTML = (post) => {
+            return `
+                <article class="post" data-post-id="${post.id}"> 
+                    <h2>${post.title}</h2>
+                    <p>${post.description}</p>
+
+                    <div class="reactions-container">
+                        <button class="reaction-btn" data-reaction-type="like">👍 (<span class="count" id="like-count-${post.id}">0</span>)</button>
+                        <button class="reaction-btn" data-reaction-type="love">❤️ (<span class="count" id="love-count-${post.id}">0</span>)</button>
+                        <button class="reaction-btn" data-reaction-type="funny">😂 (<span class="count" id="funny-count-${post.id}">0</span>)</button>
+                    </div>
+                    
+                    <div class="comments-section">
+                        <h3>Comentarios</h3>
+                        <form class="comment-form">
+                            <input type="text" placeholder="Escribe tu comentario..." required>
+                            <button type="submit">Enviar</button>
+                        </form>
+                        <div class="comments-list" id="comments-list-${post.id}"></div>
+                    </div>
+                </article>
+            `;
+        };
+        
+        // ==== Función para renderizar comentario (sin cambios) ====
         const renderComment = (commentData) => {
             const commentDiv = document.createElement('div');
             commentDiv.classList.add('comment');
@@ -135,21 +110,24 @@
             return commentDiv;
         };
 
-        // ==== Escuchar comentarios en tiempo real ====
+        // ==== Escuchar comentarios en tiempo real (sin cambios) ====
         const subscribeToComments = (postId) => {
             const commentsList = document.getElementById(`comments-list-${postId}`);
             const commentsRef = collection(db, "posts", postId, "comentarios");
             const q = query(commentsRef, orderBy("timestamp", "desc"));
 
             onSnapshot(q, (snapshot) => {
-                commentsList.innerHTML = '';
-                snapshot.forEach((doc) => {
-                    commentsList.appendChild(renderComment(doc.data()));
-                });
+                // Se verifica si el elemento existe antes de manipularlo.
+                if (commentsList) {
+                    commentsList.innerHTML = '';
+                    snapshot.forEach((doc) => {
+                        commentsList.appendChild(renderComment(doc.data()));
+                    });
+                }
             });
         };
 
-        // ==== Escuchar reacciones en tiempo real ====
+        // ==== Escuchar reacciones en tiempo real (sin cambios) ====
         const subscribeToReactions = (postId) => {
             const reactionsRef = collection(db, "reacciones");
             const q = query(reactionsRef, where("postId", "==", postId));
@@ -164,78 +142,114 @@
                     if (data.userId === USER_ID) userReaction = data.tipo;
                 });
 
-                document.getElementById(`like-count-${postId}`).textContent = counts.like;
-                document.getElementById(`love-count-${postId}`).textContent = counts.love;
-                document.getElementById(`funny-count-${postId}`).textContent = counts.funny;
+                // Se verifica si el elemento existe antes de manipularlo.
+                const likeCountEl = document.getElementById(`like-count-${postId}`);
+                const loveCountEl = document.getElementById(`love-count-${postId}`);
+                const funnyCountEl = document.getElementById(`funny-count-${postId}`);
+
+                if (likeCountEl) likeCountEl.textContent = counts.like;
+                if (loveCountEl) loveCountEl.textContent = counts.love;
+                if (funnyCountEl) funnyCountEl.textContent = counts.funny;
 
                 const postEl = document.querySelector(`.post[data-post-id="${postId}"]`);
-                postEl.querySelectorAll('.reaction-btn').forEach(btn => {
-                    const type = btn.getAttribute('data-reaction-type');
-                    btn.classList.toggle('active', type === userReaction);
-                });
-            });
-        };
-
-        // ==== Envío de comentarios ====
-        document.querySelectorAll('.comment-form').forEach(form => {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const postEl = form.closest('.post');
-                const postId = postEl.dataset.postId;
-                const input = form.querySelector('input');
-                const text = input.value.trim();
-                if (!text) return;
-
-                try {
-                    await addDoc(collection(db, "posts", postId, "comentarios"), {
-                        contenido: text,
-                        usuario: "Usuario Anónimo",
-                        timestamp: serverTimestamp()
+                if (postEl) {
+                    postEl.querySelectorAll('.reaction-btn').forEach(btn => {
+                        const type = btn.getAttribute('data-reaction-type');
+                        btn.classList.toggle('active', type === userReaction);
                     });
-                    input.value = '';
-                } catch (err) {
-                    console.error("Error al enviar comentario:", err);
                 }
             });
-        });
+        };
+        
+        // ==== Manejadores de Eventos (Ahora funciones separadas) ====
 
-        // ==== Manejo de reacciones ====
-        document.querySelectorAll('.reaction-btn').forEach(button => {
-            button.addEventListener('click', async () => {
-                const postEl = button.closest('.post');
-                const postId = postEl.dataset.postId;
-                const type = button.dataset.reactionType;
-                const reactionRef = doc(db, "reacciones", `${postId}_${USER_ID}`);
+        const handleCommentSubmit = async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            const postEl = form.closest('.post');
+            const postId = postEl.dataset.postId;
+            const input = form.querySelector('input');
+            const text = input.value.trim();
+            if (!text) return;
 
-                try {
-                    const snap = await getDoc(reactionRef);
-                    if (snap.exists()) {
-                        const currentType = snap.data().tipo;
-                        if (currentType === type) {
-                            await deleteDoc(reactionRef); // quitar reacción
-                        } else {
-                            await setDoc(reactionRef, {
-                                postId, userId: USER_ID, tipo: type, timestamp: serverTimestamp()
-                            });
-                        }
+            try {
+                await addDoc(collection(db, "posts", postId, "comentarios"), {
+                    contenido: text,
+                    usuario: "Usuario Anónimo",
+                    timestamp: serverTimestamp()
+                });
+                input.value = '';
+            } catch (err) {
+                console.error("Error al enviar comentario:", err);
+            }
+        };
+
+        const handleReactionClick = async (e) => {
+            const button = e.currentTarget;
+            const postEl = button.closest('.post');
+            const postId = postEl.dataset.postId;
+            const type = button.dataset.reactionType;
+            const reactionRef = doc(db, "reacciones", `${postId}_${USER_ID}`);
+
+            try {
+                const snap = await getDoc(reactionRef);
+                if (snap.exists()) {
+                    const currentType = snap.data().tipo;
+                    if (currentType === type) {
+                        await deleteDoc(reactionRef); // quitar reacción
                     } else {
                         await setDoc(reactionRef, {
                             postId, userId: USER_ID, tipo: type, timestamp: serverTimestamp()
                         });
                     }
-                } catch (err) {
-                    console.error("Error al manejar reacción:", err);
+                } else {
+                    await setDoc(reactionRef, {
+                        postId, userId: USER_ID, tipo: type, timestamp: serverTimestamp()
+                    });
                 }
-            });
-        });
+            } catch (err) {
+                console.error("Error al manejar reacción:", err);
+            }
+        };
 
-        // ==== Inicializar escuchas ====
-        document.addEventListener('DOMContentLoaded', () => {
+        // ==== Inicializar Escuchas y Event Listeners ====
+        const initializePostListeners = () => {
+            // Inicializa las escuchas en tiempo real (Firebase)
             document.querySelectorAll('.post').forEach(post => {
                 const id = post.dataset.postId;
                 subscribeToComments(id);
                 subscribeToReactions(id);
             });
+            
+            // Adjunta los listeners de envío de comentarios
+            document.querySelectorAll('.comment-form').forEach(form => {
+                form.addEventListener('submit', handleCommentSubmit);
+            });
+            
+            // Adjunta los listeners de botones de reacción
+            document.querySelectorAll('.reaction-btn').forEach(button => {
+                button.addEventListener('click', handleReactionClick);
+            });
+        };
+
+        // ==== Función Principal de Renderizado ====
+        const renderAllPosts = () => {
+            const container = document.querySelector('.container');
+            if (!container) return; 
+
+            // 1. Mapea los datos a una sola cadena de HTML
+            const postsHTML = POSTS_DATA.map(post => createPostHTML(post)).join('');
+            
+            // 2. Inserta el HTML en el contenedor
+            container.innerHTML = postsHTML;
+
+            // 3. Inicializa los eventos y las escuchas de Firebase
+            initializePostListeners();
+        };
+
+        // ==== Inicialización al cargar el DOM ====
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAllPosts();
         });
     </script>
 </body>
